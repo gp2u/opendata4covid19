@@ -1,0 +1,42 @@
+2020-4-8
+
+안녕하세요, 코로나19 국제협력연구 진행 관련 공지사항입니다.
+
+먼저, 코로나19 국제협력연구에 관심을 갖고 참여해 주신 국내외 연구자들께 감사드립니다.
+코로나19가 전 세계로 급속히 확산되는 시점에 한국의 보건복지부와 건강보험심사평가원이
+긴급하게 데이터를 수집, 정제하여 개방하는 과정에서, 연구 참여자분들이 궁금해 하시는
+사항에 대해 아래와 같이 공지 드립니다.
+
+1.프로젝트 진행 관련
+-4월 10일(금)까지 프로젝트 신청 및 분석코드를 업로드하신 연구는 4월 17일(금) 까지 순차적으로 결과값을 반출해 드릴 예정입니다.
+-4월 10일(금) 이후 업로드된 분석 코드 실행 결과 반출 일정은 이후에 공지해 드리도록 하겠습니다.
+-결과값 반출 전, 1) 1page 연구계획서, 2) IRB 승인/면제 서류 및 3) 데이터 이용 동의서(서면, 공지사항에 게시 예정)를 업로드해 주시기 바랍니다.
+
+2.프로젝트 담당자 연락처(심평원 빅데이터실 빅데이터연구부)
+-SAS 분석: 조도연 주임연구원, 033-739-1091, ehdusl003@hira.or.kr
+-CDM 및 R 분석: 김지우 주임연구원, 033-739-1066, kimjiwoo@hira.or.kr
+
+이 외에, 프로젝트 참여 연구자분들이 궁금해 하는 사항은 FAQ 형태로 QnA 게시판에 곧 공지해 드리겠습니다.
+
+감사합니다.
+
+Hello, this is Corona 19 International Cooperation Research Notice.
+
+First of all, I would like to thank the researchers at home and abroad who have taken an interest in and participated in Corona 19 international cooperation research.
+As Corona 19 rapidly spreads around the world, the Ministry of Health and Welfare and the Health Insurance Review and Assessment Service in Korea
+In the process of urgently collecting, purifying, and opening data, research participants are curious
+We will announce the following items.
+
+1. Project progress related
+-A study that uploaded the project application and analysis code by April 10 (Fri) will sequentially export the results until April 17 (Fri).
+-We will notify you later of the schedule for exporting analysis code uploaded after April 10 (Fri).
+-Before exporting the results, please upload 1) 1page research plan, 2) IRB approval / waiver documents and 3) data use agreement (to be posted in the written and notice).
+
+2.Contact information for project managers (Simpyeong Won Big Data Lab Big Data Research Department)
+-SAS analysis: Cho Do-yeon, Chief Researcher, 033-739-1091, ehdusl003@hira.or.kr
+-CDM and R analysis: Kim Ji-woo, chief researcher, 033-739-1066, kimjiwoo@hira.or.kr
+
+In addition to this, any questions that the researchers in the project are interested in will be announced on the QnA bulletin board in the form of FAQ.
+
+Thank you.
+
