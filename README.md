@@ -88,3 +88,11 @@ care_info_covid.csv              demographic_data.csv             medication_inf
 care_info_past_history.csv       medication_info_covid.csv
 $ 
 ```
+
+## HWP file format
+
+Some notices have been only been published as *.HWP in Korean.
+
+You can convert to PDF at https://allinpdf.com/convert/fileconvert/fileconvert-start
+
+You will find these conversions (with Google translations) in the Notices directory.
