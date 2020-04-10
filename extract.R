@@ -243,8 +243,8 @@ medication_info_past_history = medication_info_past_history[,c(
 # 5. Write the output file
 #--------------------------------------
 
-# This section outpute the data into new .csv files which we can open and use.
-
+# This section outputs the data into new .csv files which we can open and use.
+dir.create("./Results", showWarning = FALSE)
 write.csv(demographic_data, "./Results/demographic_data.csv", row.names = F)
 write.csv(care_info_covid, "./Results/care_info_covid.csv", row.names = F)
 write.csv(care_info_past_history, "./Results/care_info_past_history.csv", row.names = F)
