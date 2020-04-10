@@ -61,7 +61,7 @@ RStudio may look after the details for you will need to consult https://rstudio.
 
 If you use Windows, I'm sorry but I can't help. 
 
-I don't use Windows bbut feel free to add instructions here!
+I don't use Windows but feel free to add instructions here!
 
 ## Extra Files
 
