@@ -67,7 +67,7 @@ We have added the current Korean instructional material into Documents. These ha
 
 ### Korean_Codes directory
 
-The mapping between the GNL_CD medication code and the generic name is supplied in 2 formats.
+The mapping between the GNL_CD medication code and the generic name is supplied.
 
 The KCD-7 disease codes are included but these do not seem to map to the codes in use.
 
