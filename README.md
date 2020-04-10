@@ -1,9 +1,13 @@
 ## Open Data 4 Covid 19 - Korean COVID-19 data extraction using R
 
 With thanks to:
+
   *The Republic of Korea
+
   *The Ministry of Health and Welfare and
+
   *Health Insurance Review & Assessment Service
+
   *Website: https://hira-covid19.net/
 
 ## Installing R
