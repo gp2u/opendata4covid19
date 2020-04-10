@@ -2,13 +2,13 @@
 
 With thanks to:
 
-  *The Republic of Korea
+  * The Republic of Korea
 
-  *The Ministry of Health and Welfare and
+  * The Ministry of Health and Welfare and
 
-  *Health Insurance Review & Assessment Service
+  * Health Insurance Review & Assessment Service
 
-  *Website: https://hira-covid19.net/
+  * Website: https://hira-covid19.net/
 
 ## Installing R
 
