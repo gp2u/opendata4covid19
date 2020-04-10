@@ -38,8 +38,25 @@ co19_t400_twjhe_dn = read_excel("./Data/HIRA COVID-19 Sample Data_20200325.xlsx"
 co19_t530_twjhe_dn = read_excel("./Data/HIRA COVID-19 Sample Data_20200325.xlsx", sheet=9)
 
 # GNL_CD mapping to generic name
-gnl_cd_mapping = read_excel("./Data/GNL_CD-all-codes-drug.xlsx", sheet=1)
+gnl_cd_mapping = read_excel("./Korean_Codes/GNL_CD-all-codes-drug.xlsx", sheet=1)
 
+# SEX_TP_CD to sex
+sex_tp_cd_mapping = read_excel("./Korean_Codes/SEX_TP_CD.xlsx", sheet=1)
+
+# DGRSLT_TP_CD to outcome
+dgrslt_tp_cd_mapping = read_excel("./Korean_Codes/DGRSLT_TP_CD.xlsx", sheet=1)
+
+# DGSBJT_CD to hospital department name
+dgsbjt_cd_mapping = read_excel("./Korean_Codes/DGSBJT_CD.xlsx", sheet=1)
+
+# CL_CD to clinic (hospital) type
+cl_cd_mapping = read_excel("./Korean_Codes/CL_CD.xlsx", sheet=1)
+
+# FOM_TP_CD to event type
+fom_tp_cd_mapping = read_excel("./Korean_Codes/FOM_TP_CD.xlsx", sheet=1)
+
+# MAIN_SICK to KCD-7 string diagnosis
+main_sick_mapping = read_excel("./Korean_Codes/MAIN_SICK_KCD-7.xlsx", sheet=1)
 
 #--------------------------------------
 # 3. Create relevant tables from data
@@ -56,6 +73,7 @@ demographic_data = co19_t200_trans_dn[,c(
 # Get only the unique entries
 # there may be some individuals with >1 hospital record
 demographic_data = unique(demographic_data)
+
 
 
 #--------------------------------------
@@ -125,7 +143,7 @@ medication_info_past_history = medication_info_past_history[which(medication_inf
 nch = nchar(medication_info_past_history$PRSCP_GRANT_NO[1])
 
 # separate PRSCP_GRANT_NO by year, month, day
-medication_info_past_history$YYMMDD       = substring(medication_info_past_history$PRSCP_GRANT_NO, 1, 8)
+medication_info_past_history$YYYYMMDD       = substring(medication_info_past_history$PRSCP_GRANT_NO, 1, 8)
 medication_info_past_history$PRSCP_YEAR   = substring(medication_info_past_history$PRSCP_GRANT_NO, 1, 4)
 medication_info_past_history$PRSCP_MONTH  = substring(medication_info_past_history$PRSCP_GRANT_NO, 5, 6)
 medication_info_past_history$PRSCP_DAY    = substring(medication_info_past_history$PRSCP_GRANT_NO, 7, 8)
@@ -139,9 +157,54 @@ medication_info_past_history$PRSCP_DAY    = substring(medication_info_past_histo
 # even if there are no matches in the second file.
 # We are using GNL_CD the merge the files.
 
+demographic_data = merge(demographic_data, sex_tp_cd_mapping, by="SEX_TP_CD", all.x=T)
+care_info_covid  = merge(care_info_covid, dgrslt_tp_cd_mapping, by="DGRSLT_TP_CD", all.x=T)
+care_info_covid  = merge(care_info_covid, dgsbjt_cd_mapping, by="DGSBJT_CD", all.x=T)
+care_info_covid  = merge(care_info_covid, cl_cd_mapping, by="CL_CD", all.x=T)
+care_info_covid  = merge(care_info_covid, fom_tp_cd_mapping, by="FOM_TP_CD", all.x=T)
+care_info_covid  = merge(care_info_covid, main_sick_mapping, by="MAIN_SICK", all.x=T)
+care_info_past_history  = merge(care_info_past_history, dgrslt_tp_cd_mapping, by="DGRSLT_TP_CD", all.x=T)
+care_info_past_history  = merge(care_info_past_history, dgsbjt_cd_mapping, by="DGSBJT_CD", all.x=T)
+care_info_past_history  = merge(care_info_past_history, cl_cd_mapping, by="CL_CD", all.x=T)
+care_info_past_history  = merge(care_info_past_history, fom_tp_cd_mapping, by="FOM_TP_CD", all.x=T)
+care_info_past_history  = merge(care_info_past_history, main_sick_mapping, by="MAIN_SICK", all.x=T)
 medication_info_covid = merge(medication_info_covid, gnl_cd_mapping, by="GNL_CD", all.x=T)
 medication_info_past_history = merge(medication_info_past_history, gnl_cd_mapping, by="GNL_CD", all.x=T)
 
+# modify names in main_sick_mapping to reuse on SUB_SICK and merge
+names(main_sick_mapping)[names(main_sick_mapping) == "MAIN_SICK"] <- "SUB_SICK"
+names(main_sick_mapping)[names(main_sick_mapping) == "MAIN_DX"] <- "SUB_DX"
+care_info_covid  = merge(care_info_covid, main_sick_mapping, by="SUB_SICK", all.x=T)
+care_info_past_history  = merge(care_info_past_history, main_sick_mapping, by="SUB_SICK", all.x=T)
+
+
+#--------------------------------------
+# 5. Rename colums
+#--------------------------------------
+
+names(demographic_data)[names(demographic_data) == "PAT_AGE"] <- "AGE"
+names(medication_info_covid)[names(medication_info_covid) == "TOT_INJC_DDCNT_EXEC_FQ"] <- "DAYS_RX"
+names(medication_info_past_history)[names(medication_info_past_history) == "TOT_INJC_DDCNT_EXEC_FQ"] <- "DAYS_RX"
+
+#--------------------------------------
+# 5. Set output data
+#--------------------------------------
+
+demographic_data = demographic_data[,c(
+  "MID","SEX","AGE"
+)]
+care_info_covid = care_info_covid[,c(
+  "MID","MAIN_SICK","MAIN_DX","SUB_SICK","SUB_DX","RECU_FR_DD","RECU_TO_DD","FST_DD","VST_DDCNT","RECU_DDCNT","CLINIC_TYPE","EVENT_TYPE","DEPARTMENT","OUTCOME"
+)]
+care_info_past_history = care_info_past_history[,c(
+  "MID","MAIN_SICK","MAIN_DX","SUB_SICK","SUB_DX","RECU_FR_DD","RECU_TO_DD","FST_DD","VST_DDCNT","RECU_DDCNT","CLINIC_TYPE","EVENT_TYPE","DEPARTMENT","OUTCOME"
+)]
+medication_info_covid = medication_info_covid[,c(
+  "MID","YYYYMMDD","PRSCP_YEAR","PRSCP_MONTH","PRSCP_DAY","DAYS_RX","GNL_CD","GEN_SHORT","GEN_LONG"
+)]
+medication_info_past_history = medication_info_past_history[,c(
+  "MID","YYYYMMDD","PRSCP_YEAR","PRSCP_MONTH","PRSCP_DAY","DAYS_RX","GNL_CD","GEN_SHORT","GEN_LONG"
+)]
 
 #--------------------------------------
 # 5. Write the output file

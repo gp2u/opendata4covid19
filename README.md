@@ -67,9 +67,12 @@ We have added the current Korean instructional material into Documents. These ha
 
 ### Korean_Codes directory
 
-The mapping between the GNL_CD medication code and the generic name is supplied.
+This directory contains some of the mappings from codes to english strings.
 
-The KCD-7 disease codes are included but these do not seem to map to the codes in use.
+The PDF with the Korean name is the source of many of the codes. It is in Korean and can't be autotranslated but you can find the code you are interested in
+and then translate the code numbers. 
+
+Please remember to make code number text in Excel otherwise it will strip the leading 0's and will not match properly
 
 ## Running this code
 
