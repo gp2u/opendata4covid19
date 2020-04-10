@@ -37,6 +37,9 @@ co19_t300_twjhe_dn = read_excel("./Data/HIRA COVID-19 Sample Data_20200325.xlsx"
 co19_t400_twjhe_dn = read_excel("./Data/HIRA COVID-19 Sample Data_20200325.xlsx", sheet=8)
 co19_t530_twjhe_dn = read_excel("./Data/HIRA COVID-19 Sample Data_20200325.xlsx", sheet=9)
 
+# GNL_CD mapping to generic name
+gnl_cd_mapping = read_excel("./Data/GNL_CD-all-codes-drug.xlsx", sheet=1)
+
 
 #--------------------------------------
 # 3. Create relevant tables from data
@@ -99,11 +102,11 @@ medication_info_covid = medication_info_covid[which(medication_info_covid$MID %i
 # Get the number of characters in the number/string
 nch = nchar(medication_info_covid$PRSCP_GRANT_NO[1])
 
-# separate PRSCP_GRANT_NO by year, month, day, remaining, etc
+# separate PRSCP_GRANT_NO by year, month, day
+medication_info_covid$YYYYMMDD  = substring(medication_info_covid$PRSCP_GRANT_NO, 1, 8)
 medication_info_covid$PRSCP_YEAR  = substring(medication_info_covid$PRSCP_GRANT_NO, 1, 4)
 medication_info_covid$PRSCP_MONTH  = substring(medication_info_covid$PRSCP_GRANT_NO, 5, 6)
 medication_info_covid$PRSCP_DAY  = substring(medication_info_covid$PRSCP_GRANT_NO, 7, 8)
-medication_info_covid$PRSCP_REM  = substring(medication_info_covid$PRSCP_GRANT_NO, 9, nch)
 
 
 #--------------------------------------
@@ -121,12 +124,23 @@ medication_info_past_history = medication_info_past_history[which(medication_inf
 # Get the number of characters in the number/string
 nch = nchar(medication_info_past_history$PRSCP_GRANT_NO[1])
 
-# separate PRSCP_GRANT_NO by year, month, day, remaining, etc
-medication_info_past_history$PRSCP_YEAR  = substring(medication_info_past_history$PRSCP_GRANT_NO, 1, 4)
+# separate PRSCP_GRANT_NO by year, month, day
+medication_info_past_history$YYMMDD       = substring(medication_info_past_history$PRSCP_GRANT_NO, 1, 8)
+medication_info_past_history$PRSCP_YEAR   = substring(medication_info_past_history$PRSCP_GRANT_NO, 1, 4)
 medication_info_past_history$PRSCP_MONTH  = substring(medication_info_past_history$PRSCP_GRANT_NO, 5, 6)
-medication_info_past_history$PRSCP_DAY  = substring(medication_info_past_history$PRSCP_GRANT_NO, 7, 8)
-medication_info_past_history$PRSCP_REM  = substring(medication_info_past_history$PRSCP_GRANT_NO, 9, nch)
+medication_info_past_history$PRSCP_DAY    = substring(medication_info_past_history$PRSCP_GRANT_NO, 7, 8)
 
+
+#--------------------------------------
+# 4. Merge datasets
+#--------------------------------------
+
+# The all.x=T component forces the fuction to keep all records in the first merged file,
+# even if there are no matches in the second file.
+# We are using GNL_CD the merge the files.
+
+medication_info_covid = merge(medication_info_covid, gnl_cd_mapping, by="GNL_CD", all.x=T)
+medication_info_past_history = merge(medication_info_past_history, gnl_cd_mapping, by="GNL_CD", all.x=T)
 
 
 #--------------------------------------

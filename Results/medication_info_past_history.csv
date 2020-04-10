@@ -1,1 +1,4 @@
-"MID","PRSCP_GRANT_NO","TOT_INJC_DDCNT_EXEC_FQ","GNL_CD","PRSCP_YEAR","PRSCP_MONTH","PRSCP_DAY","PRSCP_REM"
+"GNL_CD","MID","PRSCP_GRANT_NO","TOT_INJC_DDCNT_EXEC_FQ","YYMMDD","PRSCP_YEAR","PRSCP_MONTH","PRSCP_DAY","GEN_SHORT","GEN_LONG"
+"267400ATB",12341,"2015123100008",3,"20151231","2015","12","31","caffeine anhydrous + chlorpheniramine maleate + dihydrocodeine tartrate + DL-methylephedrine hydrochloride","caffeine anhydrous 10mg + chlorpheniramine maleate 1.5mg + dihydrocodeine tartrate 5mg + DL-methylephedrine hydrochloride 17.5mg"
+"524800ATB",12340,"2015123100007",3,"20151231","2015","12","31","levocetirizine + pseudoephedrine HCl","levocetirizine 2.5mg + pseudoephedrine HCl 120mg"
+"524800ATB",12342,"2015123100009",3,"20151231","2015","12","31","levocetirizine + pseudoephedrine HCl","levocetirizine 2.5mg + pseudoephedrine HCl 120mg"
