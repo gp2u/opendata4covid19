@@ -2,11 +2,44 @@
 
 #-----------------------------------------------------------------------------
 #-----------------------------------------------------------------------------
-# Short script to extract relevant data from COVID-19 database
-# v 0.1.1
+#
+# opendata4covid19
+#
+# A short script to extract relevant data from COVID-19 database with relevant ancillary files
+# v 0.1.2
 # 09-Apr-2020
-# Katie Heath: katie.heath@burnet.edu.au
+# Dr Katie Heath: katie.heath@burnet.edu.au
 # Dr James Freeman: james@gp2u.com.au
+#
+# To the extent possible under law, the authors have dedicated all copyright and related and 
+# neighboring rights to this software to the public domain worldwide. 
+#
+# This software is distributed without any warranty.
+#
+# You should have received a copy of the CC0 Public Domain Dedication along with this software. 
+# If not, please see <http://creativecommons.org/publicdomain/zero/1.0/>.
+#
+# Please do not feed the dragon
+#
+#            <>=======()
+#           (/\___   /|\\          ()==========<>_
+#                 \_/ | \\        //|\   ______/ \)
+#                   \_|  \\      // | \_/
+#                     \|\/|\_   //  /\/
+#                      (oo)\ \_//  /
+#                     //_/\_\/ /  |
+#                    @@/  |=\  \  |
+#                         \_=\_ \ |
+#                           \==\ \|\_ snd
+#                        __(\===\(  )\
+#                       (((~) __(_/   |
+#                            (((~) \  /
+#                            ______/ /
+#                            '------'
+#
+# Don't let his cuteness fool you, he bites. I once saw him consume a quad
+# processor CPU, every byte of swap, and an entire SAN. Didn't even flinch.
+#
 #-----------------------------------------------------------------------------
 #-----------------------------------------------------------------------------
 
