@@ -282,120 +282,120 @@ med_info_phx = med_info_phx[,c(
 # VST_DDCNT - the integer Visit Day Count - ie the number of days recieving inpatient (hospital) treatment
 # RECU_DDCNT - the integer Recuperating Day Count - ie the number of days recieving treatment (including outpatient medication)
 # CLINIC_TYPE - a sting from the CL_CD.xlsx file with options shown below
-#    CL_CD	CLINIC_TYPE
-#    01	Advanced General Hospital
-#    11	General Hospital
-#    21	Hospital
-#    28	Yo Yang Hospital
-#    29	Mental Health Hospital
-#    31	Clinic
-#    41	Dental Hospital Won
-#    51	Dental Clinic
-#    61	Midwifery
-#    71	Health Center
-#    72	Bo Guernsey
-#    73	Health Clinic
-#    74	Mother and Child Health Center
-#    75	Health Medical Center
-#    81	Pharmacy
-#    92	Oriental Hospital
-#    93	Oriental Medicine
-#    $	$
+#    CL_CD    CLINIC_TYPE
+#    01    Advanced General Hospital
+#    11    General Hospital
+#    21    Hospital
+#    28    Yo Yang Hospital
+#    29    Mental Health Hospital
+#    31    Clinic
+#    41    Dental Hospital Won
+#    51    Dental Clinic
+#    61    Midwifery
+#    71    Health Center
+#    72    Bo Guernsey
+#    73    Health Clinic
+#    74    Mother and Child Health Center
+#    75    Health Medical Center
+#    81    Pharmacy
+#    92    Oriental Hospital
+#    93    Oriental Medicine
+#    $     $
 # EVENT_TYPE - where this episode of care happened as outlined below
-#    FOM_TP_CD	EVENT_TYPE
-#    021	Medical hospitalization
-#    031	Medical outpatient
-#    041	Dental hospitalization
-#    051	Dental outpatient
-#    061	Midwifery admission
-#    071	Health institution inpatient department
-#    072	Health institution inpatient dentistry
-#    073	Health institution hospitalization
-#    081	Health institution outpatient department
-#    082	Outpatient Department of Health
-#    083	Health institution outpatient oriental medicine
-#    091	Mind and day ward
-#    101	Psychiatric hospitalization
-#    111	Psychiatry
-#    121	Oriental hospitalization
-#    131	Oriental medicine
-#    151	Hemodialysis
-#    201	Direct preparation
-#    211	Prescription drugs
-#    991	Midwifery Outpatient
-#    $	$
+#    FOM_TP_CD    EVENT_TYPE
+#    021    Medical hospitalization
+#    031    Medical outpatient
+#    041    Dental hospitalization
+#    051    Dental outpatient
+#    061    Midwifery admission
+#    071    Health institution inpatient department
+#    072    Health institution inpatient dentistry
+#    073    Health institution hospitalization
+#    081    Health institution outpatient department
+#    082    Outpatient Department of Health
+#    083    Health institution outpatient oriental medicine
+#    091    Mind and day ward
+#    101    Psychiatric hospitalization
+#    111    Psychiatry
+#    121    Oriental hospitalization
+#    131    Oriental medicine
+#    151    Hemodialysis
+#    201    Direct preparation
+#    211    Prescription drugs
+#    991    Midwifery Outpatient
+#    $      $
 # DEPARTMENT - for what looks like only admitted patients one of these options
-#    DGSBJT_CD	DEPARTMENT
-#    00	General
-#    01	Internal Medicine
-#    02	Neurology
-#    03	Psychiatry
-#    04	Surgery
-#    05	Orthopedic Surgery
-#    06	Neurosurgery
-#    07	Thoracic Surgery
-#    08	Plastic Surgery
-#    09	Anesthesia and Pain Medicine
-#    10	Obstetrics Causality
-#    11	Pediatrics
-#    12	Ophthalmology
-#    13	Otolaryngology
-#    14	Dermatology
-#    15	Urology
-#    16	Radiology
-#    17	Radiation Oncology
-#    18	Pathology
-#    19	Diagnostics Department
-#    20	Tuberculosis
-#    21	Rehabilitation Medicine
-#    22	Nuclear Medicine
-#    23	Family Medicine
-#    24	Emergency Medicine
-#    25	Industrial Medicine
-#    26	Preventive Medicine
-#    27	Dentistry
-#    28	Herbal
-#    40	Pharmacy
-#    41	Health
-#    42	Health Institution Department
-#    43	Health Intitution Dentistry
-#    44	Health Institution Oriental Medicine
-#    49	Dentistry
-#    50	Oral and Maxillofacial Surgery
-#    51	Dental Prosthodontics
-#    52	Dental Orthodontics
-#    53	Pediatric Dentistry
-#    54	Periodontal
-#    55	Dental Preservation
-#    56	Oral Internal Medicine
-#    57	Oral and Maxillofacial Radiology
-#    58	Oral Pathology
-#    59	Prevantive Dentistry
-#    60	Dental Office
-#    61	Integrated Dentistry
-#    80	Oriental Internal Medicine
-#    81	Oriental Gynecology
-#    82	Oriental Medicine Pediatrics
-#    83	Oriental Medicine Otorhinolaryngology Dermatology
-#    84	OrientalPsychiatry
-#    85	Acupuncture Department
-#    86	Oriental Rehabilitation Medicine
-#    87	Sasang Constitution
-#    88	Oriental Emergency
-#    89	Oriental Emergency
-#    90	Oriental Subtotal
-#    99	Other
-#    $	$
+#    DGSBJT_CD    DEPARTMENT
+#    00    General
+#    01    Internal Medicine
+#    02    Neurology
+#    03    Psychiatry
+#    04    Surgery
+#    05    Orthopedic Surgery
+#    06    Neurosurgery
+#    07    Thoracic Surgery
+#    08    Plastic Surgery
+#    09    Anesthesia and Pain Medicine
+#    10    Obstetrics Causality
+#    11    Pediatrics
+#    12    Ophthalmology
+#    13    Otolaryngology
+#    14    Dermatology
+#    15    Urology
+#    16    Radiology
+#    17    Radiation Oncology
+#    18    Pathology
+#    19    Diagnostics Department
+#    20    Tuberculosis
+#    21    Rehabilitation Medicine
+#    22    Nuclear Medicine
+#    23    Family Medicine
+#    24    Emergency Medicine
+#    25    Industrial Medicine
+#    26    Preventive Medicine
+#    27    Dentistry
+#    28    Herbal
+#    40    Pharmacy
+#    41    Health
+#    42    Health Institution Department
+#    43    Health Intitution Dentistry
+#    44    Health Institution Oriental Medicine
+#    49    Dentistry
+#    50    Oral and Maxillofacial Surgery
+#    51    Dental Prosthodontics
+#    52    Dental Orthodontics
+#    53    Pediatric Dentistry
+#    54    Periodontal
+#    55    Dental Preservation
+#    56    Oral Internal Medicine
+#    57    Oral and Maxillofacial Radiology
+#    58    Oral Pathology
+#    59    Prevantive Dentistry
+#    60    Dental Office
+#    61    Integrated Dentistry
+#    80    Oriental Internal Medicine
+#    81    Oriental Gynecology
+#    82    Oriental Medicine Pediatrics
+#    83    Oriental Medicine Otorhinolaryngology Dermatology
+#    84    OrientalPsychiatry
+#    85    Acupuncture Department
+#    86    Oriental Rehabilitation Medicine
+#    87    Sasang Constitution
+#    88    Oriental Emergency
+#    89    Oriental Emergency
+#    90    Oriental Subtotal
+#    99    Other
+#    $     $
 # OUTCOME - the outcome of this care event selected from these options
-#    DGRSLT_TP_CD	OUTCOME
-#    1			Continued
-#    2			Transfer
-#    3	Return
-#    4	Death
-#    5	Other
-#    8	Previous
-#    9	Discharge
-#    $	$
+#    DGRSLT_TP_CD    OUTCOME
+#    1   Continued
+#    2   Transfer
+#    3   Return
+#    4   Death
+#    5   Other
+#    8   Previous
+#    9   Discharge
+#    $   $
 #
 #  "MID","YYMMDD","DAYS_RX","GNL_CD","GEN_SHORT","GEN_LONG"
 #
