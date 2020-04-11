@@ -5,6 +5,8 @@
 #
 # opendata4covid19
 #
+# extract.R
+#
 # A short script to extract relevant data from COVID-19 database with relevant ancillary files
 # v 0.1.2
 # 09-Apr-2020
@@ -50,6 +52,11 @@
 if (! require("readxl")) install.packages("readxl")
 library(readxl)
 
+# This package allows us to easily manipulate tables
+
+if (! require("data.table")) install.packages("data.table")
+library(data.table)
+
 #--------------------------------------
 # 2. Read test data, sheet by sheet
 #--------------------------------------
@@ -92,6 +99,7 @@ main_sick_map = read_excel("./Korean_Codes/MAIN_SICK_KCD-7.xlsx", sheet=1)
 # Remove the duplicate values from KCD-7
 main_sick_map = main_sick_map[!duplicated(main_sick_map$MAIN_SICK),]
 
+
 #--------------------------------------
 # 3. Create relevant tables from data
 #--------------------------------------
@@ -108,12 +116,9 @@ demographics = co19_t200_trans_dn[,c(
 # there may be some individuals with >1 hospital record
 demographics = unique(demographics)
 
-
-
 #--------------------------------------
 # 3.ii. Table 2 - Care information - COVID
 #--------------------------------------
-
 
 care_info_covid = co19_t200_trans_dn[,c(
   "MID", "CL_CD","FOM_TP_CD","MAIN_SICK","SUB_SICK","DGSBJT_CD",
@@ -124,11 +129,9 @@ care_info_covid = co19_t200_trans_dn[,c(
 # get only the medical records which match with table 1 demographic data
 care_info_covid = care_info_covid[which(care_info_covid$MID %in% demographics$MID),]
 
-
 #--------------------------------------
 # 3.iii. Table 3 - Care information - PAST HISTORY
 #--------------------------------------
-
 
 care_info_phx = co19_t200_twjhe_dn[,c(
   "MID", "CL_CD","FOM_TP_CD","MAIN_SICK","SUB_SICK","DGSBJT_CD",
@@ -138,7 +141,6 @@ care_info_phx = co19_t200_twjhe_dn[,c(
 
 # get only the medical records which match with table 1 demographic data
 care_info_phx = care_info_phx[which(care_info_phx$MID %in% demographics$MID),]
-
 
 #--------------------------------------
 # 3.iv. Table 4 - Medication information - COVID
@@ -160,7 +162,6 @@ med_info_covid$YYYYMMDD  = substring(med_info_covid$PRSCP_GRANT_NO, 1, 8)
 #med_info_covid$PRSCP_MONTH  = substring(med_info_covid$PRSCP_GRANT_NO, 5, 6)
 #med_info_covid$PRSCP_DAY  = substring(med_info_covid$PRSCP_GRANT_NO, 7, 8)
 
-
 #--------------------------------------
 # 3.v. Table 5 - Medication information - PAST HISTORY
 #--------------------------------------
@@ -181,7 +182,6 @@ med_info_phx$YYYYMMDD       = substring(med_info_phx$PRSCP_GRANT_NO, 1, 8)
 med_info_phx$PRSCP_YEAR   = substring(med_info_phx$PRSCP_GRANT_NO, 1, 4)
 med_info_phx$PRSCP_MONTH  = substring(med_info_phx$PRSCP_GRANT_NO, 5, 6)
 med_info_phx$PRSCP_DAY    = substring(med_info_phx$PRSCP_GRANT_NO, 7, 8)
-
 
 #--------------------------------------
 # 4. Merge datasets
@@ -213,7 +213,7 @@ care_info_phx  = merge(care_info_phx, main_sick_map, by="SUB_SICK",  all.x=T)
 
 
 #--------------------------------------
-# 5. Rename colums
+# 5. Rename columns
 #--------------------------------------
 
 names(demographics)[names(demographics) == "PAT_AGE"] <- "AGE"
@@ -221,11 +221,24 @@ names(med_info_covid)[names(med_info_covid) == "TOT_INJC_DDCNT_EXEC_FQ"] <- "DAY
 names(med_info_phx)[names(med_info_phx) == "TOT_INJC_DDCNT_EXEC_FQ"] <- "DAYS_RX"
 
 #--------------------------------------
-# 5. Set output data
+# 6. Get the age range breakdown
+#--------------------------------------
+
+agebreaks <- c(0,10,20,30,40,50,60,70,80,85,500)
+agelabels <- c("0-9","10-19","20-29","30-39","40-49","50-59","60-69","70-79","80-89","90+")
+
+setDT(demographics)[, AGE_RANGE := cut(AGE,
+                                breaks = agebreaks, 
+                                right = FALSE, 
+                                labels = agelabels)]
+#print(demographics)
+
+#--------------------------------------
+# 7. Set output data
 #--------------------------------------
 
 demographics = demographics[,c(
-  "MID","SEX","AGE"
+  "MID","AGE_RANGE","SEX"
 )]
 care_info_covid = care_info_covid[,c(
   "MID","MAIN_SICK","MAIN_DX","SUB_SICK","SUB_DX","RECU_FR_DD","RECU_TO_DD","FST_DD","VST_DDCNT","RECU_DDCNT","CLINIC_TYPE","EVENT_TYPE","DEPARTMENT","OUTCOME"
@@ -241,7 +254,7 @@ med_info_phx = med_info_phx[,c(
 )]
 
 #--------------------------------------
-# 5. Write the output file
+# 7. Write the output files
 #--------------------------------------
 
 # This section outputs the data into new .csv files which we can open and use.
@@ -251,3 +264,9 @@ write.csv(care_info_covid, "./Results/care_info_covid.csv", row.names = F)
 write.csv(care_info_phx, "./Results/care_info_phx.csv", row.names = F)
 write.csv(med_info_covid, "./Results/med_info_covid.csv", row.names = F)
 write.csv(med_info_phx, "./Results/med_info_phx.csv", row.names = F)
+
+#--------------------------------------
+# 8. Start analytics
+#--------------------------------------
+
+
