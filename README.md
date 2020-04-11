@@ -84,8 +84,8 @@ Please remember to make code number text in Excel otherwise it will strip the le
 $ rm -rf Results/*
 $ Rscript extract.R
 $ ls Results/
-care_info_covid.csv              demographic_data.csv             medication_info_past_history.csv
-care_info_past_history.csv       medication_info_covid.csv
+care_info_covid.csv      demographics.csv         med_info_phx.csv         summary_demographics.csv
+care_info_phx.csv        med_info_covid.csv       summary_age_range.csv    summary_sex.csv
 $ 
 ```
 

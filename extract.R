@@ -156,8 +156,8 @@ med_info_covid = med_info_covid[which(med_info_covid$MID %in% demographics$MID),
 # Get the number of characters in the number/string
 nch = nchar(med_info_covid$PRSCP_GRANT_NO[1])
 
-# separate PRSCP_GRANT_NO by YYYYMMDD, year, month, day
-med_info_covid$YYYYMMDD  = substring(med_info_covid$PRSCP_GRANT_NO, 1, 8)
+# separate PRSCP_GRANT_NO by YYMMDD, year, month, day
+med_info_covid$YYMMDD  = substring(med_info_covid$PRSCP_GRANT_NO, 3, 8)
 #med_info_covid$PRSCP_YEAR  = substring(med_info_covid$PRSCP_GRANT_NO, 1, 4)
 #med_info_covid$PRSCP_MONTH  = substring(med_info_covid$PRSCP_GRANT_NO, 5, 6)
 #med_info_covid$PRSCP_DAY  = substring(med_info_covid$PRSCP_GRANT_NO, 7, 8)
@@ -178,7 +178,7 @@ med_info_phx = med_info_phx[which(med_info_phx$MID %in% demographics$MID),]
 nch = nchar(med_info_phx$PRSCP_GRANT_NO[1])
 
 # separate PRSCP_GRANT_NO by year, month, day
-med_info_phx$YYYYMMDD       = substring(med_info_phx$PRSCP_GRANT_NO, 1, 8)
+med_info_phx$YYMMDD       = substring(med_info_phx$PRSCP_GRANT_NO, 3, 8)
 med_info_phx$PRSCP_YEAR   = substring(med_info_phx$PRSCP_GRANT_NO, 1, 4)
 med_info_phx$PRSCP_MONTH  = substring(med_info_phx$PRSCP_GRANT_NO, 5, 6)
 med_info_phx$PRSCP_DAY    = substring(med_info_phx$PRSCP_GRANT_NO, 7, 8)
@@ -247,11 +247,163 @@ care_info_phx = care_info_phx[,c(
   "MID","MAIN_SICK","MAIN_DX","SUB_SICK","SUB_DX","RECU_FR_DD","RECU_TO_DD","FST_DD","VST_DDCNT","RECU_DDCNT","CLINIC_TYPE","EVENT_TYPE","DEPARTMENT","OUTCOME"
 )]
 med_info_covid = med_info_covid[,c(
-  "MID","YYYYMMDD","DAYS_RX","GNL_CD","GEN_SHORT","GEN_LONG"
+  "MID","YYMMDD","DAYS_RX","GNL_CD","GEN_SHORT","GEN_LONG"
 )]
 med_info_phx = med_info_phx[,c(
-  "MID","YYYYMMDD","DAYS_RX","GNL_CD","GEN_SHORT","GEN_LONG"
+  "MID","YYMMDD","DAYS_RX","GNL_CD","GEN_SHORT","GEN_LONG"
 )]
+
+#--------------------------------------
+# 7. Schema of output data
+#--------------------------------------
+
+# Null values are either $ or NA
+# 
+# Korean code mappings are in Korean_Codes/*.xlsx but have already been merged
+#
+#  "MID","AGE_RANGE","SEX"
+#
+# MID - unique ID for a patient
+# AGE_RANGE - patient age expressing anonymous 10 year groupings (stings like "20-29")
+# SEX - male, female, other
+#
+# "MID","MAIN_SICK","MAIN_DX","SUB_SICK","SUB_DX","RECU_FR_DD","RECU_TO_DD","FST_DD","VST_DDCNT","RECU_DDCNT","CLINIC_TYPE","EVENT_TYPE","DEPARTMENT","OUTCOME"
+#
+# MID - unique ID for a patient
+# MAIN_SICK - the principal diagnosis code from KCD7 (Korean Classification Diseases v7)
+# MAIN_DX - the corresponding string for MAIN_SICK see MAIN_SICK_KCD-7.xlsx
+# SUB_SICK - the secondary diagnosis code from KDC7, may be null
+# SUB_DX - the corresponding string for SUB_SICK from KCD7
+# RECU_FR_DD - the YYMMDD date the patient started receiving medical treatment
+# RECU_TO_DD - the YYMMDD date the patient finished receiving medical treatment
+# FST_DD - the YYMMDD date of the FIRST admission
+# VST_DDCNT - the integer Visit Day Count - ie the number of days recieving inpatient (hospital) treatment
+# RECU_DDCNT - the integer Recuperating Day Count - ie the number of days recieving treatment (including outpatient medication)
+# CLINIC_TYPE - a sting from the CL_CD.xlsx file with options shown below
+#    CL_CD	CLINIC_TYPE
+#    01	Advanced General Hospital
+#    11	General Hospital
+#    21	Hospital
+#    28	Yo Yang Hospital
+#    29	Mental Health Hospital
+#    31	Clinic
+#    41	Dental Hospital Won
+#    51	Dental Clinic
+#    61	Midwifery
+#    71	Health Center
+#    72	Bo Guernsey
+#    73	Health Clinic
+#    74	Mother and Child Health Center
+#    75	Health Medical Center
+#    81	Pharmacy
+#    92	Oriental Hospital
+#    93	Oriental Medicine
+#    $	$
+# EVENT_TYPE - where this episode of care happened as outlined below
+#    FOM_TP_CD	EVENT_TYPE
+#    021	Medical hospitalization
+#    031	Medical outpatient
+#    041	Dental hospitalization
+#    051	Dental outpatient
+#    061	Midwifery admission
+#    071	Health institution inpatient department
+#    072	Health institution inpatient dentistry
+#    073	Health institution hospitalization
+#    081	Health institution outpatient department
+#    082	Outpatient Department of Health
+#    083	Health institution outpatient oriental medicine
+#    091	Mind and day ward
+#    101	Psychiatric hospitalization
+#    111	Psychiatry
+#    121	Oriental hospitalization
+#    131	Oriental medicine
+#    151	Hemodialysis
+#    201	Direct preparation
+#    211	Prescription drugs
+#    991	Midwifery Outpatient
+#    $	$
+# DEPARTMENT - for what looks like only admitted patients one of these options
+#    DGSBJT_CD	DEPARTMENT
+#    00	General
+#    01	Internal Medicine
+#    02	Neurology
+#    03	Psychiatry
+#    04	Surgery
+#    05	Orthopedic Surgery
+#    06	Neurosurgery
+#    07	Thoracic Surgery
+#    08	Plastic Surgery
+#    09	Anesthesia and Pain Medicine
+#    10	Obstetrics Causality
+#    11	Pediatrics
+#    12	Ophthalmology
+#    13	Otolaryngology
+#    14	Dermatology
+#    15	Urology
+#    16	Radiology
+#    17	Radiation Oncology
+#    18	Pathology
+#    19	Diagnostics Department
+#    20	Tuberculosis
+#    21	Rehabilitation Medicine
+#    22	Nuclear Medicine
+#    23	Family Medicine
+#    24	Emergency Medicine
+#    25	Industrial Medicine
+#    26	Preventive Medicine
+#    27	Dentistry
+#    28	Herbal
+#    40	Pharmacy
+#    41	Health
+#    42	Health Institution Department
+#    43	Health Intitution Dentistry
+#    44	Health Institution Oriental Medicine
+#    49	Dentistry
+#    50	Oral and Maxillofacial Surgery
+#    51	Dental Prosthodontics
+#    52	Dental Orthodontics
+#    53	Pediatric Dentistry
+#    54	Periodontal
+#    55	Dental Preservation
+#    56	Oral Internal Medicine
+#    57	Oral and Maxillofacial Radiology
+#    58	Oral Pathology
+#    59	Prevantive Dentistry
+#    60	Dental Office
+#    61	Integrated Dentistry
+#    80	Oriental Internal Medicine
+#    81	Oriental Gynecology
+#    82	Oriental Medicine Pediatrics
+#    83	Oriental Medicine Otorhinolaryngology Dermatology
+#    84	OrientalPsychiatry
+#    85	Acupuncture Department
+#    86	Oriental Rehabilitation Medicine
+#    87	Sasang Constitution
+#    88	Oriental Emergency
+#    89	Oriental Emergency
+#    90	Oriental Subtotal
+#    99	Other
+#    $	$
+# OUTCOME - the outcome of this care event selected from these options
+#    DGRSLT_TP_CD	OUTCOME
+#    1			Continued
+#    2			Transfer
+#    3	Return
+#    4	Death
+#    5	Other
+#    8	Previous
+#    9	Discharge
+#    $	$
+#
+#  "MID","YYMMDD","DAYS_RX","GNL_CD","GEN_SHORT","GEN_LONG"
+#
+# MID - unique ID for a patient
+# YYMMDD - date of prescription YYMMDD
+# DAYS_RX - the number of days treatment supplied
+# GNL_CD - the unique code for the medication
+# GEN_SHORT - the GNL_CD converted to a simplified generic name (medication grouping format)
+# GEN_LONG - the GNL_CD converted to the full generic name with dose/formulation
+
 
 #--------------------------------------
 # 7. Write the output files
@@ -269,10 +421,10 @@ write.csv(med_info_phx, "./Results/med_info_phx.csv", row.names = F)
 # 8. Start analytics
 #--------------------------------------
 
-demographics = setDT(demographics)
-summary_demographics = demographics[, .(n = .N), keyby = .(AGE_RANGE, SEX)]
-summary_sex = demographics[, .(n = .N), keyby = .( SEX)]
-summary_age_range = demographics[, .(n = .N), keyby = .(AGE_RANGE)]
+demographicsDT = setDT(demographics)
+summary_demographics = demographicsDT[, .(n = .N), keyby = .(AGE_RANGE, SEX)]
+summary_sex = demographicsDT[, .(n = .N), keyby = .( SEX)]
+summary_age_range = demographicsDT[, .(n = .N), keyby = .(AGE_RANGE)]
 
 write.csv(summary_demographics, "./Results/summary_demographics.csv", row.names = F)
 write.csv(summary_sex, "./Results/summary_sex.csv", row.names = F)
