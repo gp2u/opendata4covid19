@@ -269,4 +269,11 @@ write.csv(med_info_phx, "./Results/med_info_phx.csv", row.names = F)
 # 8. Start analytics
 #--------------------------------------
 
+demographics = setDT(demographics)
+summary_demographics = demographics[, .(n = .N), keyby = .(AGE_RANGE, SEX)]
+summary_sex = demographics[, .(n = .N), keyby = .( SEX)]
+summary_age_range = demographics[, .(n = .N), keyby = .(AGE_RANGE)]
 
+write.csv(summary_demographics, "./Results/summary_demographics.csv", row.names = F)
+write.csv(summary_sex, "./Results/summary_sex.csv", row.names = F)
+write.csv(summary_age_range, "./Results/summary_age_range.csv", row.names = F)
