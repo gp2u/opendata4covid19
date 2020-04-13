@@ -226,8 +226,8 @@ names(med_info_phx)[names(med_info_phx) == "TOT_INJC_DDCNT_EXEC_FQ"] <- "DAYS_RX
 # 6. Get the age range breakdown
 #--------------------------------------
 
-agebreaks <- c(0,10,20,30,40,50,60,70,80,85,500)
-agelabels <- c("0-9","10-19","20-29","30-39","40-49","50-59","60-69","70-79","80-89","90+")
+agebreaks <- c(0,20,30,40,50,60,70,80,500)
+agelabels <- c("0-19","20-29","30-39","40-49","50-59","60-69","70-79","80+")
 
 setDT(demographics)[, AGE_RANGE := cut(AGE,
                                 breaks = agebreaks, 
