@@ -425,9 +425,22 @@ write.csv(med_info_phx, "./Results/med_info_phx.csv", row.names = F)
 
 demographicsDT = setDT(demographics)
 summary_demographics = demographicsDT[, .(n = .N), keyby = .(AGE_RANGE, SEX)]
-summary_sex = demographicsDT[, .(n = .N), keyby = .( SEX)]
+summary_sex = demographicsDT[, .(n = .N), keyby = .(SEX)]
 summary_age_range = demographicsDT[, .(n = .N), keyby = .(AGE_RANGE)]
+
+care_info_covidDT = setDT(care_info_covid)
+summary_outcome = care_info_covidDT[, .(n = .N), keyby = .(CLINIC_TYPE, OUTCOME)]
+
+med_info_covidDT = setDT(med_info_covid)
+summary_med_info_covid = med_info_covidDT[, .(days_rx=sum(DAYS_RX), n = .N), keyby = .(GNL_CD, GEN_SHORT)]
+
+
+med_info_phxDT = setDT(med_info_phx)
+summary_med_info_phx = med_info_phxDT[, .(days_rx=sum(DAYS_RX), n = .N), keyby = .(GNL_CD, GEN_SHORT)]
 
 write.csv(summary_demographics, "./Results/summary_demographics.csv", row.names = F)
 write.csv(summary_sex, "./Results/summary_sex.csv", row.names = F)
 write.csv(summary_age_range, "./Results/summary_age_range.csv", row.names = F)
+write.csv(summary_outcome, "./Results/summary_outcome.csv", row.names = F)
+write.csv(summary_med_info_phx, "./Results/summary_med_info_phx.csv", row.names = F)
+write.csv(summary_med_info_covid, "./Results/summary_med_info_covid.csv", row.names = F)

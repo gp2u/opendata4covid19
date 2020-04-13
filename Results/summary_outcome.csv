@@ -1,0 +1,6 @@
+"CLINIC_TYPE","OUTCOME","n"
+"Advanced General Hospital","Death",1
+"General Hospital","Transfer",1
+"Health Center","$",3
+"Hospital","Continued",4
+"Hospital","Return",1
